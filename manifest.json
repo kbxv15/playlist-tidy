@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Playlist Tidy for YouTube Music",
+  "short_name": "Playlist Tidy",
+  "version": "1.0.0",
+  "description": "Tidy your YouTube Music library: bulk-delete playlists, remove duplicate and unavailable songs, sort, merge, and back up.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Playlist Tidy",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": ["https://music.youtube.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://music.youtube.com/*"],
+      "js": ["tidy.js"],
+      "world": "MAIN",
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://music.youtube.com/*"],
+      "js": ["bridge.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": { "default": "Alt+Shift+T" },
+      "description": "Open or close Playlist Tidy"
+    }
+  }
+}
